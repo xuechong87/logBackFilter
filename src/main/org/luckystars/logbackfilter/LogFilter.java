@@ -1,6 +1,8 @@
 package org.luckystars.logbackfilter;
 
 import java.io.IOException;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,8 +21,7 @@ public class LogFilter implements Filter {
 
 	private FilterConfig filterConfig;
 	private static final String LOGGER_NAME = LogFilter.class.getName();
-	private LogRecordBuilder logRecordBuilder;
-	
+	private LogRecordBuilder logRecordBuilder = new LogRecordBuilderImpl();
 	private static final Logger logger = LoggerFactory.getLogger(LOGGER_NAME);
 	
 	@Override

@@ -19,6 +19,7 @@ public class CacheAppender<E> extends UnsynchronizedAppenderBase<E>{
 	@Override
 	public void start() {
 		super.start();
+		
 	}
 	
 	@Override
@@ -31,7 +32,7 @@ public class CacheAppender<E> extends UnsynchronizedAppenderBase<E>{
 	}
 	
 	
-	public  List<LogRecord> getLogs(){
+	public List<LogRecord> getLogs(){
 		return logCache;
 	}
 	
