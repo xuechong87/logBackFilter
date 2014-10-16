@@ -3,6 +3,7 @@ package org.luckystars.logbackfilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 
 import org.luckystars.logbackfilter.api.LogRecord;
 
@@ -32,8 +33,14 @@ public class CacheAppender<E> extends UnsynchronizedAppenderBase<E>{
 	}
 	
 	
+	
 	public List<LogRecord> getLogs(){
 		return logCache;
 	}
 	
+	
+	static class Worker extends Observable{
+		
+		
+	}
 }
