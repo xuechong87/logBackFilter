@@ -15,7 +15,7 @@ public class LogRecordBuilderImpl implements LogRecordBuilder{
 		rec.setTime(new Date());
 		rec.setUrl(req.getRequestURI());
 		rec.setPerson("");
-		return null;
+		return rec;
 	}
 
 }
