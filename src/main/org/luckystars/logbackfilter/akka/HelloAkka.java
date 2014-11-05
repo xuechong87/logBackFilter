@@ -67,16 +67,22 @@ public class HelloAkka {
         inbox.send(greeter, new Greet());
         Greeting greeting2 = (Greeting) inbox.receive(Duration.create(5, TimeUnit.SECONDS));
         System.out.println("Greeting: " + greeting2.message);
-
-        // after zero seconds, send a Greet message every second to the greeter with a sender of the GreetPrinter
-        ActorRef greetPrinter = system.actorOf(Props.create(GreetPrinter.class));
-        system.scheduler().schedule(Duration.Zero(), Duration.create(1, TimeUnit.SECONDS), greeter, new Greet(), system.dispatcher(), greetPrinter);
+        
+        for (int i = 0; i < 200; i++) {
+        	// after zero seconds, send a Greet message every second to the greeter with a sender of the GreetPrinter
+            ActorRef greetPrinter = system.actorOf(Props.create(GreetPrinter.class));
+            system.scheduler().schedule(Duration.Zero(), Duration.create(1, TimeUnit.SECONDS), 
+            		 greeter, new Greet(), system.dispatcher(), greetPrinter);
+		}
+        
     }
 
     public static class GreetPrinter extends UntypedActor {
         public void onReceive(Object message) {
             if (message instanceof Greeting)
-                System.out.println(((Greeting) message).message);
+                System.out.println(Thread.currentThread().getId()  + "||"
+                		+ this.hashCode() + "||"
+                		+ ((Greeting) message).message);
         }
     }
 }

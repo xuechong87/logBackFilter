@@ -1,8 +1,6 @@
 package org.luckystars.logbackfilter;
 
 import java.io.IOException;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,6 +15,7 @@ import org.luckystars.logbackfilter.api.LogRecordBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class LogFilter implements Filter {
 
 	private FilterConfig filterConfig;
@@ -24,9 +23,15 @@ public class LogFilter implements Filter {
 	private LogRecordBuilder logRecordBuilder = new LogRecordBuilderImpl();
 	private static final Logger logger = LoggerFactory.getLogger(LOGGER_NAME);
 	
+//	private static  ActorSystem ActorSystem; 
+//	private static Inbox inbox;
+	private static final String SYS_NAME = "logActorSystem";
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
+//		ActorSystem = akka.actor.ActorSystem.create(SYS_NAME);
+//		inbox = Inbox.create(ActorSystem);
 	}
 
 	@Override
@@ -35,13 +40,27 @@ public class LogFilter implements Filter {
 		
 		if(request instanceof HttpServletRequest){
 			HttpServletRequest req = (HttpServletRequest)request;
-			
-			LogRecord event = logRecordBuilder.build(req);
-			logger.info(req.getRequestURI(),event);
+			processLog(req);
 		}
 		
 		chain.doFilter(request, response);
 	}
+
+//	private void processLog(HttpServletRequest req) {
+//		LogRecord event = logRecordBuilder.build(req);
+//		logger.info(req.getRequestURI(),event);
+//	}
+	
+	
+	private void processLog(HttpServletRequest req) {
+		LogRecord event = logRecordBuilder.build(req);
+		
+		
+		
+		
+	}
+	
+	
 
 	@Override
 	public void destroy() {

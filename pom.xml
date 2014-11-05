@@ -173,7 +173,7 @@
 			<groupId>com.typesafe.akka</groupId>
 			<artifactId>akka</artifactId>
 			<version>2.2.0-RC2</version>
-		</dependency> -->
+		</dependency>  -->
 		
 	</dependencies>
 </project>
